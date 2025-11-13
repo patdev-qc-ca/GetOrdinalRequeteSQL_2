@@ -8,24 +8,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace GetOrdinalRequeteSQL_2
 {
     public partial class Form1 : Form
     {
         public static string connectionString { get; set; }
-        static string StringSQL { get; set; }
+        internal static string StringSQL { get; set; }
         public static string SqlNameDB { get; private set; }
         internal static bool SecuriteIntegree { get; set; }
-        public string NomServeur { get; private set; }
-        public string Instance { get; private set; }
+        public static string NomServeur { get; private set; }
+        public static string Instance { get; private set; }
 
         internal static SqlConnection con;
-        public Form1()
-        {
-            InitializeComponent();
-        }
-
+        public Form1() => InitializeComponent();
         private void Form1_Load(object sender, EventArgs e)
         {
             InstanceSQL.Text = (Environment.MachineName + "\\sqlexpress").ToUpper();
@@ -47,11 +45,73 @@ namespace GetOrdinalRequeteSQL_2
                 SecuriteIntegree = false;
             }
         }
-        public static void OuvrirConnexionTableSQL() => con = new SqlConnection(StringSQL);
+        public static void ListerTableDansBaseChoisie()
+        {
+            ListeTables.Items.Clear();
+            using (SqlConnection connection = new SqlConnection(StringSQL))
+            {
+                try
+                {
+                    connection.Open();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        StatutConnexion.Text = $"\\\\{NomServeur}\\{Instance}.DBO.{SqlNameDB}".ToUpper();
+                    }
+                    string query = "SELECT TABLE_CATALOG,TABLE_SCHEMA,UPPER(TABLE_NAME),TABLE_TYPE FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND TABLE_NAME NOT LIKE 'SPT_%' AND TABLE_NAME !='MSREPLICATION_OPTIONS' ORDER BY TABLE_NAME,TABLE_CATALOG";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ListeTables.Items.Add(reader.GetString(2));
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erreur : {ex.Message}\n{ex.StackTrace}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        public void ListerColonnesDansTable()
+        {
+            ListeColonnes.Items.Clear();
+            listView1.Items.Clear();
+            using (SqlConnection connection = new SqlConnection(StringSQL))
+            {
+                try
+                {
+                    connection.Open();
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        StatutConnexion.Text = $"\\\\{NomServeur}\\{Instance}.DBO.{SqlNameDB}".ToUpper();
+                    }
+                    string query = $"SELECT TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, ORDINAL_POSITION, IS_NULLABLE, DATA_TYPE " +
+                        $"CHARACTER_OCTET_LENGTH,NUMERIC_PRECISION,NUMERIC_PRECISION_RADIX FROM INFORMATION_SCHEMA.COLUMNS " +
+                        $"WHERE TABLE_CATALOG = '{SqlNameDB}' AND TABLE_NAME = '{ListeTables.Text}' AND TABLE_NAME NOT LIKE 'SPT_%' AND TABLE_NAME != 'MSREPLICATION_OPTIONS'  " +
+                        $"ORDER BY TABLE_NAME";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ListeTables.Items.Add(reader.GetString(3));
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erreur : {ex.Message}\n{ex.StackTrace}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+        }
         public static void ListerBasesDonneeSurLeServeur()
         {
             ListeDB.Items.Clear();
-            MessageBox.Show(connectionString);
+            StatutConnexion.Text = connectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -127,6 +187,12 @@ namespace GetOrdinalRequeteSQL_2
             {
                 StringSQL = $"Server={InstanceSQL.Text};Database={SqlNameDB};User Id={Utilisateur.Text};Password={MotDePasse.Text};Encrypt=true;TrustServerCertificate=true;";
             }
+            ListerTableDansBaseChoisie();
+        }
+
+        private void ListeTables_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

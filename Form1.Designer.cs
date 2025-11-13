@@ -33,7 +33,6 @@ namespace GetOrdinalRequeteSQL_2
         private void InitializeComponent()
         {
             groupBox1 = new System.Windows.Forms.GroupBox();
-            ListBox1 = new System.Windows.Forms.ListBox();
             txtSQL = new System.Windows.Forms.TextBox();
             ListeTables = new System.Windows.Forms.ComboBox();
             label1 = new System.Windows.Forms.Label();
@@ -55,14 +54,17 @@ namespace GetOrdinalRequeteSQL_2
             InstanceSQL = new System.Windows.Forms.TextBox();
             label3 = new System.Windows.Forms.Label();
             panel1 = new System.Windows.Forms.Panel();
+            ListeColonnes = new System.Windows.Forms.ListBox();
+            listView1 = new System.Windows.Forms.ListView();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             statusStrip1.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(ListBox1);
+            groupBox1.Controls.Add(listView1);
             groupBox1.Controls.Add(txtSQL);
             groupBox1.Location = new System.Drawing.Point(328, 5);
             groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -73,21 +75,10 @@ namespace GetOrdinalRequeteSQL_2
             groupBox1.TabStop = false;
             groupBox1.Visible = false;
             // 
-            // ListBox1
-            // 
-            ListBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            ListBox1.FormattingEnabled = true;
-            ListBox1.ItemHeight = 21;
-            ListBox1.Location = new System.Drawing.Point(385, 30);
-            ListBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            ListBox1.Name = "ListBox1";
-            ListBox1.Size = new System.Drawing.Size(400, 277);
-            ListBox1.TabIndex = 1;
-            // 
             // txtSQL
             // 
             txtSQL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            txtSQL.Location = new System.Drawing.Point(5, 72);
+            txtSQL.Location = new System.Drawing.Point(0, 306);
             txtSQL.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             txtSQL.Multiline = true;
             txtSQL.Name = "txtSQL";
@@ -102,6 +93,7 @@ namespace GetOrdinalRequeteSQL_2
             ListeTables.Size = new System.Drawing.Size(196, 21);
             ListeTables.TabIndex = 6;
             ListeTables.Visible = false;
+            ListeTables.SelectedIndexChanged += new System.EventHandler(ListeTables_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -283,10 +275,31 @@ namespace GetOrdinalRequeteSQL_2
             // 
             // panel1
             // 
-            panel1.Location = new System.Drawing.Point(54, 462);
+            panel1.Controls.Add(ListeColonnes);
+            panel1.Location = new System.Drawing.Point(12, 243);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(200, 100);
+            panel1.Size = new System.Drawing.Size(307, 319);
             panel1.TabIndex = 6;
+            panel1.Visible = false;
+            // 
+            // ListeColonnes
+            // 
+            ListeColonnes.Dock = System.Windows.Forms.DockStyle.Fill;
+            ListeColonnes.FormattingEnabled = true;
+            ListeColonnes.Location = new System.Drawing.Point(0, 0);
+            ListeColonnes.Name = "ListeColonnes";
+            ListeColonnes.Size = new System.Drawing.Size(307, 319);
+            ListeColonnes.TabIndex = 0;
+            // 
+            // listView1
+            // 
+            listView1.Dock = System.Windows.Forms.DockStyle.Top;
+            listView1.HideSelection = false;
+            listView1.Location = new System.Drawing.Point(3, 15);
+            listView1.Name = "listView1";
+            listView1.Size = new System.Drawing.Size(712, 217);
+            listView1.TabIndex = 1;
+            listView1.UseCompatibleStateImageBehavior = false;
             // 
             // Form1
             // 
@@ -315,6 +328,7 @@ namespace GetOrdinalRequeteSQL_2
             groupBox2.PerformLayout();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
 
         }
@@ -330,7 +344,6 @@ namespace GetOrdinalRequeteSQL_2
         internal static Label label5;
         internal static Button CommandeConnexion;
         internal static GroupBox groupBox1;
-        internal static ListBox ListBox1;
         internal static TextBox txtSQL;
         internal static Button button1;
         internal static Button button2;
@@ -344,6 +357,8 @@ namespace GetOrdinalRequeteSQL_2
         internal static Panel panel1;
         internal static StatusStrip statusStrip1;
         internal static ToolStripStatusLabel StatutConnexion;
+        internal static ListBox ListeColonnes;
+        internal static ListView listView1;
     }
 }
 
