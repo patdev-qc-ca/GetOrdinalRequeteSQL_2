@@ -78,35 +78,58 @@ namespace GetOrdinalRequeteSQL_2
         {
             ListeColonnes.Items.Clear();
             listView1.Items.Clear();
+            listView1.View = View.Details;
+            listView1.FullRowSelect = true;
+            listView1.GridLines = true;
             using (SqlConnection connection = new SqlConnection(StringSQL))
             {
+                string codeSql = string.Empty;
                 try
                 {
                     connection.Open();
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        StatutConnexion.Text = $"\\\\{NomServeur}\\{Instance}.DBO.{SqlNameDB}".ToUpper();
-                    }
-                    string query = $"SELECT TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, ORDINAL_POSITION, IS_NULLABLE, DATA_TYPE " +
-                        $"CHARACTER_OCTET_LENGTH,NUMERIC_PRECISION,NUMERIC_PRECISION_RADIX FROM INFORMATION_SCHEMA.COLUMNS " +
+                    if (connection.State == ConnectionState.Open) { StatutConnexion.Text = $"[DBO].[{SqlNameDB}].[{ListeTables.Text}]".ToUpper(); }
+                    string query = $"SELECT TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME , ORDINAL_POSITION, IS_NULLABLE, DATA_TYPE AS 'TYPE', CHARACTER_OCTET_LENGTH AS 'LONGEUR',NUMERIC_PRECISION,NUMERIC_PRECISION_RADIX FROM INFORMATION_SCHEMA.COLUMNS " +
                         $"WHERE TABLE_CATALOG = '{SqlNameDB}' AND TABLE_NAME = '{ListeTables.Text}' AND TABLE_NAME NOT LIKE 'SPT_%' AND TABLE_NAME != 'MSREPLICATION_OPTIONS'  " +
                         $"ORDER BY TABLE_NAME";
+                    txtSQL.Text = query;
                     using (SqlCommand command = new SqlCommand(query, connection))
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
+                        listView1.Columns.Add("Base de donnée", 100);
+                        listView1.Columns.Add("Schema", 100);
+                        listView1.Columns.Add("Table", 100);
+                        listView1.Columns.Add("Identifiant", 100);
+                        listView1.Columns.Add("Index", 100);
+                        listView1.Columns.Add("Nullable", 100);
+                        listView1.Columns.Add("Type", 100);
+                        listView1.Columns.Add("Longeur", 100);
+                        codeSql = $"/*[{SqlNameDB}].[dbo].[{ListeTables.Text}]*/\n\nUSE [master{SqlNameDB}]\r\n" +
+                            $"IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[{ListeTables.Text}]')" +
+                            $" AND type in (N'U'))\r\nDROP TABLE [dbo].[{ListeTables.Text}]\r\n".ToUpperInvariant();
                         while (reader.Read())
                         {
-                            ListeTables.Items.Add(reader.GetString(3));
+                            ListeColonnes.Items.Add(reader.GetString(3));
+                            ListViewItem item = new ListViewItem(reader[0].ToString());
+                            item.SubItems.Add(reader[1].ToString());
+                            item.SubItems.Add(reader[2].ToString());
+                            item.SubItems.Add(reader[3].ToString());
+                            item.SubItems.Add(reader[4].ToString());
+                            item.SubItems.Add(reader[5].ToString());
+                            item.SubItems.Add(reader[6].ToString());
+                            item.SubItems.Add(reader[7].ToString());
+                            item.SubItems.Add(reader[8].ToString());
+                            item.SubItems.Add(reader[9].ToString());
+                            listView1.Items.Add(item);
+                            codeSql += $"\n";
                         }
+                        txtSQL.Text = codeSql;
                     }
-
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Erreur : {ex.Message}\n{ex.StackTrace}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
         public static void ListerBasesDonneeSurLeServeur()
         {
@@ -192,7 +215,11 @@ namespace GetOrdinalRequeteSQL_2
 
         private void ListeTables_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (ListeTables.Items.Count > 0)
+            {
+                panel1.Visible = true;
+                ListerColonnesDansTable();
+            }
         }
     }
 }
