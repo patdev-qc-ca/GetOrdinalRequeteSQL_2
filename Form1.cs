@@ -222,9 +222,47 @@ namespace GetOrdinalRequeteSQL_2
             }
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void CopierEnMemoire(object sender, EventArgs e)
         {
 
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ExporterEnCS(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EnumererRequeteSQL(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ExportSQL_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EffacerIntégrateurSQL(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SauvegarderTout(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Quitter(object sender, EventArgs e)
+        {
+            if (Application.AllowQuit == true)
+            {
+                Application.Exit();
+            }
         }
     }
 }
