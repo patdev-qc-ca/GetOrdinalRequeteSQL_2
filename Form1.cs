@@ -221,5 +221,10 @@ namespace GetOrdinalRequeteSQL_2
                 ListerColonnesDansTable();
             }
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
