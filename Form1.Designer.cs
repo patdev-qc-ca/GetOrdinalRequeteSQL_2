@@ -188,24 +188,25 @@ namespace GetOrdinalRequeteSQL_2
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.statusStrip1);
-            this.groupBox2.Controls.Add(this.CommandeConnexion);
-            this.groupBox2.Controls.Add(this.ListeTables);
-            this.groupBox2.Controls.Add(this.ListeDB);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.MotDePasse);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.Utilisateur);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.InstanceSQL);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(13, 13);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(309, 224);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Informations Serveur SQL";
+            groupBox2.Controls.Add(statusStrip1);
+            groupBox2.Controls.Add(CommandeConnexion);
+            groupBox2.Controls.Add(ListeTables);
+            groupBox2.Controls.Add(ListeDB);
+            groupBox2.Controls.Add(label1);
+            groupBox2.Controls.Add(MotDePasse);
+            groupBox2.Controls.Add(label2);
+            groupBox2.Controls.Add(label5);
+            groupBox2.Controls.Add(Utilisateur);
+            groupBox2.Controls.Add(label4);
+            groupBox2.Controls.Add(InstanceSQL);
+            groupBox2.Controls.Add(label3);
+            groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            groupBox2.Location = new System.Drawing.Point(0, 0);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new System.Drawing.Size(329, 224);
+            groupBox2.TabIndex = 5;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Informations Serveur SQL";
             // 
             // statusStrip1
             // 
@@ -295,42 +296,179 @@ namespace GetOrdinalRequeteSQL_2
             // 
             // ListeColonnes
             // 
-            this.ListeColonnes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ListeColonnes.FormattingEnabled = true;
-            this.ListeColonnes.Location = new System.Drawing.Point(0, 0);
-            this.ListeColonnes.Name = "ListeColonnes";
-            this.ListeColonnes.Size = new System.Drawing.Size(307, 319);
-            this.ListeColonnes.TabIndex = 0;
+            ListeColonnes.BackColor = System.Drawing.SystemColors.Control;
+            ListeColonnes.Dock = System.Windows.Forms.DockStyle.Fill;
+            ListeColonnes.FormattingEnabled = true;
+            ListeColonnes.Location = new System.Drawing.Point(0, 0);
+            ListeColonnes.Name = "ListeColonnes";
+            ListeColonnes.Size = new System.Drawing.Size(329, 614);
+            ListeColonnes.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            panel2.Controls.Add(groupBox2);
+            panel2.Controls.Add(panel1);
+            panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            panel2.Location = new System.Drawing.Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(331, 616);
+            panel2.TabIndex = 7;
+            // 
+            // panel3
+            // 
+            panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            panel3.Controls.Add(button6);
+            panel3.Controls.Add(listView1);
+            panel3.Controls.Add(button5);
+            panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            panel3.Location = new System.Drawing.Point(331, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new System.Drawing.Size(740, 227);
+            panel3.TabIndex = 3;
+            // 
+            // button6
+            // 
+            button6.Location = new System.Drawing.Point(498, 195);
+            button6.Name = "button6";
+            button6.Size = new System.Drawing.Size(104, 26);
+            button6.TabIndex = 3;
+            button6.Text = "Réinitialiser";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += new System.EventHandler(button6_Click);
+            // 
+            // panel4
+            // 
+            panel4.BackgroundImage = global::GetOrdinalRequeteSQL_2.Properties.Resources._00000031;
+            panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            panel4.Controls.Add(button4);
+            panel4.Controls.Add(button3);
+            panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel4.Location = new System.Drawing.Point(331, 586);
+            panel4.Name = "panel4";
+            panel4.Size = new System.Drawing.Size(740, 30);
+            panel4.TabIndex = 8;
+            panel4.Tag = "Patrice Waechter-Ebling 2025";
+            // 
+            // button7
+            // 
+            button7.Location = new System.Drawing.Point(225, 299);
+            button7.Name = "button7";
+            button7.Size = new System.Drawing.Size(93, 23);
+            button7.TabIndex = 1;
+            button7.Text = "Exporter en C°";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += new System.EventHandler(button7_Click);
+            // 
+            // statusStrip2
+            // 
+            statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            exportCS});
+            statusStrip2.Location = new System.Drawing.Point(3, 325);
+            statusStrip2.Name = "statusStrip2";
+            statusStrip2.Size = new System.Drawing.Size(320, 22);
+            statusStrip2.TabIndex = 2;
+            statusStrip2.Text = "statusStrip2";
+            // 
+            // exportCS
+            // 
+            exportCS.Name = "exportCS";
+            exportCS.Size = new System.Drawing.Size(305, 17);
+            exportCS.Spring = true;
+            exportCS.Text = "exportCS";
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(statusStrip3);
+            groupBox3.Controls.Add(ExportSQL);
+            groupBox3.Controls.Add(textBox1);
+            groupBox3.Controls.Add(button2);
+            groupBox3.Controls.Add(button1);
+            groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            groupBox3.Location = new System.Drawing.Point(336, 227);
+            groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox3.Size = new System.Drawing.Size(399, 349);
+            groupBox3.TabIndex = 9;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Intégrateur SQL ";
+            groupBox3.Visible = false;
+            // 
+            // statusStrip3
+            // 
+            statusStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            toolStripStatusLabel1});
+            statusStrip3.Location = new System.Drawing.Point(3, 325);
+            statusStrip3.Name = "statusStrip3";
+            statusStrip3.Size = new System.Drawing.Size(393, 22);
+            statusStrip3.TabIndex = 2;
+            statusStrip3.Text = "statusStrip3";
+            // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new System.Drawing.Size(378, 17);
+            toolStripStatusLabel1.Spring = true;
+            toolStripStatusLabel1.Text = "exportSQL";
+            // 
+            // ExportSQL
+            // 
+            ExportSQL.Location = new System.Drawing.Point(218, 299);
+            ExportSQL.Name = "ExportSQL";
+            ExportSQL.Size = new System.Drawing.Size(93, 23);
+            ExportSQL.TabIndex = 1;
+            ExportSQL.Text = "Exporter en SQL";
+            ExportSQL.UseVisualStyleBackColor = true;
+            ExportSQL.Click += new System.EventHandler(ExportSQL_Click);
+            // 
+            // textBox1
+            // 
+            textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            textBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            textBox1.Location = new System.Drawing.Point(3, 15);
+            textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new System.Drawing.Size(393, 279);
+            textBox1.TabIndex = 0;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1071, 616);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "Form1";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "GetOrdinalRequeteSQL v:2.00";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(1071, 616);
+            Controls.Add(groupBox3);
+            Controls.Add(panel4);
+            Controls.Add(panel3);
+            Controls.Add(panel2);
+            Controls.Add(groupBox1);
+            Icon = ((System.Drawing.Icon)(resources.GetObject("$Icon")));
+            Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "Form1";
+            SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "GetOrdinalRequeteSQL v:2.00";
+            Load += new System.EventHandler(Form1_Load);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            statusStrip2.ResumeLayout(false);
+            statusStrip2.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            statusStrip3.ResumeLayout(false);
+            statusStrip3.PerformLayout();
+            ResumeLayout(false);
 
         }
 
