@@ -1,8 +1,8 @@
-ï»¿using System;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
-
-namespace GetOrdinalRequeteSQL_2
+namespace GetOrdinalRequeteSQL_II
 {
     public partial class Form1 : Form
     {
@@ -22,9 +21,9 @@ namespace GetOrdinalRequeteSQL_2
         public static string NomServeur { get; private set; }
         public static string Instance { get; private set; }
 
-        internal static SqlConnection con;
+        internal static Microsoft.Data.SqlClient.SqlConnection con;
         public Form1() => InitializeComponent();
-        private void Form1_Load(object sender, EventArgs e)
+        private void Chargement(object sender, EventArgs e)
         {
             InstanceSQL.Text = (Environment.MachineName + "\\sqlexpress").ToUpper();
             if (MessageBox.Show("Voulez vous utiliser l'autentification Windows?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -95,7 +94,7 @@ namespace GetOrdinalRequeteSQL_2
                     using (SqlCommand command = new SqlCommand(query, connection))
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        listView1.Columns.Add("Base de donnÃ©e", 100);
+                        listView1.Columns.Add("Base de donnée", 100);
                         listView1.Columns.Add("Schema", 100);
                         listView1.Columns.Add("Table", 100);
                         listView1.Columns.Add("Identifiant", 100);
@@ -142,7 +141,7 @@ namespace GetOrdinalRequeteSQL_2
                     connection.Open();
                     if (connection.State == ConnectionState.Open)
                     {
-                        StatutConnexion.Text = "ConnectÃ© Ã  " + InstanceSQL.Text;
+                        StatutConnexion.Text = "Connecté à " + InstanceSQL.Text;
                     }
                     string query = "SELECT UPPER(NAME),DATABASE_ID,CREATE_DATE FROM SYS.DATABASES ORDER BY NAME";
 
@@ -166,7 +165,7 @@ namespace GetOrdinalRequeteSQL_2
         }
         private void CommandeConnexion_Click(object sender, EventArgs e)
         {
-            CommandeConnexion.Text = "DÃ©connexion";
+            CommandeConnexion.Text = "Déconnexion";
             ListeDB.Enabled = true;
 
             NomServeur = InstanceSQL.Text.Split('\\')[0];
@@ -189,7 +188,7 @@ namespace GetOrdinalRequeteSQL_2
                         else
                         {
                             StatutConnexion.Text = $"{Instance}@{NomServeur}";
-                            MessageBox.Show("IL n'y a pas de tables listÃ©es");
+                            MessageBox.Show("IL n'y a pas de tables listées");
                         }
                     }
                     else { MessageBox.Show("Longueur du mot de passe invalide\n" + MotDePasse.Text); }
@@ -247,7 +246,7 @@ namespace GetOrdinalRequeteSQL_2
 
         }
 
-        private void EffacerIntÃ©grateurSQL(object sender, EventArgs e)
+        private void EffacerIntégrateurSQL(object sender, EventArgs e)
         {
 
         }
